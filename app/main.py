@@ -16,29 +16,35 @@ def home():
         "message": "Flutter Lens Backend Running"
     }
 @app.post("/scanDoc")
-async def scan_document(file:UploadFile=File(...)):
+async def scan_document(file: UploadFile = File(...)):
     try:
-        print("Request received")
-        contents=await file.read();
+        # Create uploads folder if it doesn't exist
+        os.makedirs("app/uploads", exist_ok=True)
+
+        contents = await file.read()
+
         file_path = f"app/uploads/{file.filename}"
-        image=open(file_path,"wb")
-        print("File read successfully")
-        image.write(contents)
-        image.close()
+
+        with open(file_path, "wb") as image:
+            image.write(contents)
+
         processed_path = preprocessing_image(file_path)
+
         text = extract_text(processed_path)
+
         data = parse_document(text)
+
         return {
-                "data": data,
-                "message": "Image processed successfully",
-                "processed_image": processed_path
-            }
+            "data": data,
+            "message": "Image processed successfully",
+            "processed_image": processed_path
+        }
+
     except Exception as e:
-         raise HTTPException(
+        raise HTTPException(
             status_code=500,
             detail=str(e)
         )
-
 def preprocessing_image(filePath):
 
     # Check if uploaded file is PDF
