@@ -3,7 +3,7 @@ import cv2
 import pytesseract
 import os
 from pdf2image import convert_from_path
-pytesseract.pytesseract.tesseract_cmd = r"C:\Users\Gayatri\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = r"C:\Users\Gayatri\AppData\Local\Programs\Tesseract-OCR"
 # reader=easyocr.Reader(['en'])#loads the model
 app = FastAPI(
     title="Flutter Lens API",
