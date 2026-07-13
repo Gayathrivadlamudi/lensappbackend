@@ -3,9 +3,11 @@ import cv2
 import pytesseract
 import os
 from pdf2image import convert_from_path
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Users\Gayatri\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
-)
+import platform
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Users\Gayatri\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
+    )
 print(pytesseract.get_tesseract_version())
 # reader=easyocr.Reader(['en'])#loads the model
 app = FastAPI(
