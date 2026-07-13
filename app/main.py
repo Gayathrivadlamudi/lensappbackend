@@ -8,7 +8,8 @@ if platform.system() == "Windows":
     pytesseract.pytesseract.tesseract_cmd = (
         r"C:\Users\Gayatri\AppData\Local\Programs\Tesseract-OCR\tesseract.exe"
     )
-print(pytesseract.get_tesseract_version())
+    print(pytesseract.get_tesseract_version())
+
 # reader=easyocr.Reader(['en'])#loads the model
 app = FastAPI(
     title="Flutter Lens API",
