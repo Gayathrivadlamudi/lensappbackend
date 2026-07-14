@@ -122,10 +122,10 @@ def parse_aadhaar(text):
         result["dob"] = dob.group()
 
     # Gender
-    if "MALE" in text.upper():
-        result["gender"] = "Male"
-    elif "FEMALE" in text.upper():
+    if "FEMALE" in text.upper():
         result["gender"] = "Female"
+    elif "MALE" in text.upper():
+        result["gender"] = "Male"
 
     # Aadhaar Number
     aadhaar = re.search(r"\d{4}\s\d{4}\s\d{4}", text)
@@ -138,10 +138,13 @@ def parse_aadhaar(text):
         result["vid"] = vid.group(1).replace(" ", "")
 
     # Name (line before DOB)
-    for i, line in enumerate(lines):
-        if "DOB" in line.upper():
-            if i > 0:
-                result["name"] = lines[i - 1]
-            break
+    for i in range(len(lines) - 2):
+
+        if "DOB" in lines[i + 1].upper():
+
+            if "MALE" in lines[i + 2].upper() or "FEMALE" in lines[i + 2].upper():
+
+                result["name"] = lines[i]
+                break
 
     return result
