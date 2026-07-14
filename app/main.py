@@ -56,8 +56,7 @@ def preprocessing_image(filePath):
     if filePath.lower().endswith(".pdf"):
 
         pages = convert_from_path(
-            filePath,
-            poppler_path=r"C:\Program Files\poppler\Library\bin"   # Change this to your Poppler path
+            filePath
         )
 
         image_path = "app/uploads/page1.jpg"
@@ -109,7 +108,13 @@ def parse_aadhaar(text):
         "vid": "",
     }
 
-    lines = [line.strip() for line in text.split("\n") if line.strip()]
+    lines = []
+
+    for line in text.split("\n"):
+        line = line.strip()
+
+        if line != "":
+            lines.append(line)
 
     # DOB
     dob = re.search(r"\d{2}/\d{2}/\d{4}", text)
